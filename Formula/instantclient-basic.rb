@@ -17,6 +17,9 @@ class InstantclientBasic < Formula
   conflicts_with "instantclient-basiclite"
 
   def install
+    %w[libclntsh.dylib libocci.dylib].each do |dylib|
+      ln_s "#{dylib}.11.1", dylib
+    end
     lib.install Dir["*.dylib*"]
   end
 end
