@@ -1,9 +1,17 @@
+require File.expand_path("../Strategies/cache_wo_download", __dir__)
+
 # A formula that installs the Instant Client SQLPlus package.
 class InstantclientSqlplus < Formula
   desc "Oracle Instant Client SQLPlus x64"
   homepage "https://www.oracle.com/database/technologies/instant-client/macos-intel-x86-downloads.html"
+  hp = homepage
 
-  url "https://download.oracle.com/otn/mac/instantclient/10204/instantclient-sqlplus-10.2.0.4.0-macosx-x64.zip"
+  url "https://download.oracle.com/otn/mac/instantclient/10204/instantclient-sqlplus-10.2.0.4.0-macosx-x64.zip",
+      :using => (Class.new(CacheWoDownloadStrategy) do
+                   define_method :homepage do
+                     hp
+                   end
+                 end)
   sha256 "80eeaef1527de120ba7a06fb03aa25b8f993c6e71109a250eee6d21ce00296a0"
 
   option "with-basiclite", "Depend on instantclient-basiclite instead of instantclient-basic."
